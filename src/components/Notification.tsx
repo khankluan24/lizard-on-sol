@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { useNetworkConfiguration } from "@/contexts/NetworkConfigurationProvider"
 import {
   CheckCircleIcon,
   InformationCircleIcon,
   XCircleIcon,
-} from "@heroicons/react/outline";
-import { XIcon } from "@heroicons/react/solid";
-import useNotificationStore from "../stores/useNotificationStore";
-import { useConnection } from "@solana/wallet-adapter-react";
-import { getExplorerUrl } from "../utils/explorer";
-import { useNetworkConfiguration } from "@/contexts/NetworkConfigurationProvider";
+} from "@heroicons/react/outline"
+import { XIcon } from "@heroicons/react/solid"
+import { useConnection } from "@solana/wallet-adapter-react"
+
+import useNotificationStore from "../stores/useNotificationStore"
+import { getExplorerUrl } from "../utils/explorer"
+
 // import { useNetworkConfiguration } from 'contexts/NetworkConfigurationProvider';
 
 const NotificationList = () => {
   const { notifications, set: setNotificationStore } = useNotificationStore(
     (s) => s
-  );
+  )
 
-  const reversedNotifications = [...notifications].reverse();
+  const reversedNotifications = [...notifications].reverse()
 
   return (
     <div
@@ -32,23 +34,23 @@ const NotificationList = () => {
             txid={n.txid}
             onHide={() => {
               setNotificationStore((state: any) => {
-                const reversedIndex = reversedNotifications.length - 1 - idx;
+                const reversedIndex = reversedNotifications.length - 1 - idx
                 state.notifications = [
                   ...notifications.slice(0, reversedIndex),
                   ...notifications.slice(reversedIndex + 1),
-                ];
-              });
+                ]
+              })
             }}
           />
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Notification = ({ type, message, description, txid, onHide }) => {
-  const { connection } = useConnection();
-  const { networkConfiguration } = useNetworkConfiguration();
+  const { connection } = useConnection()
+  const { networkConfiguration } = useNetworkConfiguration()
 
   // TODO: we dont have access to the network or endpoint here..
   // getExplorerUrl(connection., txid, 'tx')
@@ -56,13 +58,13 @@ const Notification = ({ type, message, description, txid, onHide }) => {
 
   useEffect(() => {
     const id = setTimeout(() => {
-      onHide();
-    }, 8000);
+      onHide()
+    }, 8000)
 
     return () => {
-      clearInterval(id);
-    };
-  }, [onHide]);
+      clearInterval(id)
+    }
+  }, [onHide])
 
   return (
     <div
@@ -132,7 +134,7 @@ const Notification = ({ type, message, description, txid, onHide }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NotificationList;
+export default NotificationList
