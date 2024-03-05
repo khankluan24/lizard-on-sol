@@ -1,26 +1,14 @@
-import { Connection, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js"
-import create, { State } from "zustand"
+import { create } from "zustand"
 
-interface UserSOLBalanceStore extends State {
+interface UserSOLBalanceStore {
   balance: number
-  getUserSOLBalance: (publicKey: PublicKey, connection: Connection) => void
+  setBalance: (_balance: UserSOLBalanceStore["balance"]) => void
 }
 
-const useUserSOLBalanceStore = create<UserSOLBalanceStore>((set, _get) => ({
+const useUserSOLBalanceStore = create<UserSOLBalanceStore>()((set) => ({
   balance: 0,
-  getUserSOLBalance: async (publicKey, connection) => {
-    let balance = 0
-    try {
-      balance = await connection.getBalance(publicKey, "confirmed")
-      balance = balance / LAMPORTS_PER_SOL
-    } catch (e) {
-      console.log(`error getting balance: `, e)
-    }
-    set((s) => {
-      s.balance = balance
-      console.log(`balance updated, `, balance)
-    })
-  },
+  setBalance: (_balance: UserSOLBalanceStore["balance"] = 0) =>
+    set({ balance: _balance }),
 }))
 
 export default useUserSOLBalanceStore

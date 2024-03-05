@@ -8,7 +8,7 @@ import { notify } from "../utils/notifications"
 export const RequestAirdrop: FC = () => {
   const { connection } = useConnection()
   const { publicKey } = useWallet()
-  const { getUserSOLBalance } = useUserSOLBalanceStore()
+  // const { getUserSOLBalance } = useUserSOLBalanceStore()
 
   const onClick = useCallback(async () => {
     if (!publicKey) {
@@ -39,7 +39,7 @@ export const RequestAirdrop: FC = () => {
         txid: signature,
       })
 
-      getUserSOLBalance(publicKey, connection)
+      // getUserSOLBalance(publicKey, connection)
     } catch (error: any) {
       notify({
         type: "error",

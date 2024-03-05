@@ -5,7 +5,7 @@ import {
   ConnectionProvider,
   WalletProvider,
 } from "@solana/wallet-adapter-react"
-import { PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets"
+import { ExodusWalletAdapter, MathWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets"
 import { Cluster, clusterApiUrl } from "@solana/web3.js"
 
 import { notify } from "../utils/notifications"
@@ -24,10 +24,10 @@ const ReactUIWalletModalProviderDynamic = dynamic(
 const WalletContextProvider = ({ children }: { children: ReactNode }) => {
   const { autoConnect } = useAutoConnect()
   const { networkConfiguration } = useNetworkConfiguration()
-  const network = networkConfiguration as WalletAdapterNetwork
+  const network = networkConfiguration as WalletAdapterNetwork.Devnet
   const endpoint = useMemo(() => clusterApiUrl(network), [network])
 
-  const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], [network])
+  const wallets = useMemo(() => [ new SolflareWalletAdapter(), new ExodusWalletAdapter(), new MathWalletAdapter()], [network])
 
   const onError = useCallback((error: WalletError) => {
     notify({
@@ -43,7 +43,7 @@ const WalletContextProvider = ({ children }: { children: ReactNode }) => {
       <WalletProvider
         wallets={wallets}
         onError={onError}
-        autoConnect={autoConnect}
+        autoConnect={true}
       >
         <ReactUIWalletModalProviderDynamic>
           {children}

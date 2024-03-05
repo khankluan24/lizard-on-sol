@@ -1,32 +1,32 @@
-import { FC } from "react"
 import { AppProps } from "next/app"
 import Head from "next/head"
 
-import { AppBar } from "../components/AppBar"
-import { ContentContainer } from "../components/ContentContainer"
-import { Footer } from "../components/Footer"
-import Notifications from "../components/Notification"
 import { ContextProvider } from "../contexts/ContextProvider"
 
 import "@/styles/globals.css"
 import "@solana/wallet-adapter-react-ui/styles.css"
+import "@fontsource/creepster"
+import "@fontsource/fugaz-one"
 
-const App: FC<AppProps> = ({ Component, pageProps }) => {
+import Header from "./(public)/_components/header"
+
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Lizard On Sol</title>
+        <title>The Lizard Solana</title>
+        <link rel="icon" href="/favicon.ico" sizes="48x48"/>
+        <link
+          rel="apple-touch-icon"
+          href="/apple-icon.png"
+          type="image/png"
+          sizes="180x180"
+        />
       </Head>
 
       <ContextProvider>
-        <div className="flex flex-col h-screen">
-          <Notifications />
-          <AppBar />
-          <ContentContainer>
-            <Component {...pageProps} />
-            <Footer />
-          </ContentContainer>
-        </div>
+        <Header />
+        <Component {...pageProps} />
       </ContextProvider>
     </>
   )
