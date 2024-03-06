@@ -14,6 +14,7 @@ import {
   NetworkConfigurationProvider,
   useNetworkConfiguration,
 } from "./NetworkConfigurationProvider"
+import { Connection } from '@solana/web3.js';
 
 const ReactUIWalletModalProviderDynamic = dynamic(
   async () =>
@@ -24,9 +25,12 @@ const ReactUIWalletModalProviderDynamic = dynamic(
 const WalletContextProvider = ({ children }: { children: ReactNode }) => {
   const { autoConnect } = useAutoConnect()
   const { networkConfiguration } = useNetworkConfiguration()
-  const network = networkConfiguration as WalletAdapterNetwork.Devnet
+  const network = WalletAdapterNetwork.Devnet
+  
   const endpoint = useMemo(() => clusterApiUrl(network), [network])
-
+  const connection = new Connection('https://api.devnet.solana.com');
+  console.log(network);
+  
   const wallets = useMemo(() => [ new SolflareWalletAdapter(), new ExodusWalletAdapter(), new MathWalletAdapter()], [network])
 
   const onError = useCallback((error: WalletError) => {

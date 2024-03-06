@@ -1080,7 +1080,7 @@
     bn.js "^5.2.0"
     debug "^4.3.4"
 
-"@metaplex-foundation/mpl-toolbox@^0.9.0":
+"@metaplex-foundation/mpl-toolbox@^0.9.0", "@metaplex-foundation/mpl-toolbox@^0.9.4":
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/@metaplex-foundation/mpl-toolbox/-/mpl-toolbox-0.9.4.tgz#2211b2f726b1e5745c03908d26fd8ee580838b6f"
   integrity sha512-fd6JxfoLbj/MM8FG2x91KYVy1U6AjBQw4qjt7+Da3trzQaWnSaYHDcYRG/53xqfvZ9qofY1T2t53GXPlD87lnQ==
@@ -1182,6 +1182,13 @@
     "@metaplex-foundation/umi-serializers-core" "^0.8.9"
     "@metaplex-foundation/umi-serializers-encodings" "^0.8.9"
     "@metaplex-foundation/umi-serializers-numbers" "^0.8.9"
+
+"@metaplex-foundation/umi-signer-wallet-adapters@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@metaplex-foundation/umi-signer-wallet-adapters/-/umi-signer-wallet-adapters-0.9.1.tgz#2376d0c74ede4e700a76b34da94d97889a1c2281"
+  integrity sha512-J4HYsxHW7L79BzPi/Fr/YwNiqShJPip4ghuXkH4GipYpBfbEWxioIFc6mt4DeV2zxf3JWZjREWo1L6MGrIGcrA==
+  dependencies:
+    "@metaplex-foundation/umi-web3js-adapters" "^0.9.1"
 
 "@metaplex-foundation/umi-transaction-factory-web3js@^0.9.1":
   version "0.9.1"
