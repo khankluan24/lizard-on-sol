@@ -1,4 +1,5 @@
 import { axiosInstance } from ".";
+import { TotalRise, WhiteList } from "./types";
 
 export const checkWl = async (address: string): Promise<WhiteList> => {
     const res = await axiosInstance.get("/checkwl", { params: { address } });
