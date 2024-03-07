@@ -18,7 +18,7 @@
   "dependencies": {
     "@fontsource/creepster": "^5.0.8",
     "@fontsource/fugaz-one": "^5.0.18",
-    "@heroicons/react": "^1.0.5",
+    "@heroicons/react": "^2.1.1",
     "@metaplex-foundation/js": "^0.20.1",
     "@metaplex-foundation/mpl-candy-machine": "^6.0.1",
     "@metaplex-foundation/mpl-toolbox": "^0.9.4",
