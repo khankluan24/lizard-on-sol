@@ -8,7 +8,6 @@ import {
 import { ExodusWalletAdapter, MathWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets"
 import { Cluster, clusterApiUrl } from "@solana/web3.js"
 
-import { notify } from "../utils/notifications"
 import { AutoConnectProvider, useAutoConnect } from "./AutoConnectProvider"
 import {
   NetworkConfigurationProvider,
@@ -34,10 +33,6 @@ const WalletContextProvider = ({ children }: { children: ReactNode }) => {
   const wallets = useMemo(() => [ new SolflareWalletAdapter(), new ExodusWalletAdapter(), new MathWalletAdapter()], [network])
 
   const onError = useCallback((error: WalletError) => {
-    notify({
-      type: "error",
-      message: error.message ? `${error.name}: ${error.message}` : error.name,
-    })
     console.error(error)
   }, [])
 

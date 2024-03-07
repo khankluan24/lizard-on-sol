@@ -2,30 +2,32 @@ import { create } from "zustand"
 import { devtools, persist } from "zustand/middleware"
 
 export interface NftStoreState {
-  totalRise: WhiteList
-  setTotalRise: (_totalRise: NftStoreState["totalRise"]) => void
+  wl: WhiteList
+  setWl: (_wl: NftStoreState["wl"]) => void
+  totalMinted: number
+  setTotalMinted: (_totalMinted: NftStoreState["totalMinted"]) => void
 }
 
 const initState = {
-  totalRise: {
-    _id: "",
-    address: "",
-    currentbuy: 0,
-  },
+  wl: {} as WhiteList,
+  totalMinted: 0,
 }
 
 const useNftStore = create<NftStoreState>()(
   devtools(
     persist(
       (set) => ({
-        totalRise: initState.totalRise,
-        setTotalRise: (_totalRise: WhiteList = initState.totalRise) =>
-          set({ totalRise: _totalRise }),
+        wl: initState.wl,
+        setWl: (_wl: WhiteList = initState.wl) => set({ wl: _wl }),
+        totalMinted: initState.totalMinted,
+        setTotalMinted: (_totalMinted: number = initState.totalMinted) =>
+          set({ totalMinted: _totalMinted }),
       }),
       {
         name: "LIZARD_ON_SOL",
         partialize: (state: NftStoreState) => ({
-          totalRise: state.totalRise,
+          wl: state.wl,
+          totalMinted: state.totalMinted,
         }),
       }
     ),

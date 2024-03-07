@@ -11,7 +11,6 @@ import { LAMPORTS_PER_SOL } from "@solana/web3.js"
 
 // Store
 import styles from "./Index.module.scss"
-import { useAutoConnect } from "@/contexts/AutoConnectProvider"
 
 const cloudList = [
   {
@@ -71,7 +70,6 @@ export const HomeView = () => {
   const { publicKey } = useWallet()
   const { connection } = useConnection()
   const { setLoadingState } = useGlobalStore((state) => state)
-  const { autoConnect, setAutoConnect } = useAutoConnect()
 
   const { setBalance } = useUserSOLBalanceStore((state) => state)
 
@@ -79,7 +77,6 @@ export const HomeView = () => {
     if (publicKey) {
       let balance = await connection.getBalance(publicKey)
       balance = parseFloat((balance / LAMPORTS_PER_SOL).toFixed(4))
-      // balance = balance / LAMPORTS_PER_SOL
       setBalance(balance)
     }
   }
@@ -87,7 +84,7 @@ export const HomeView = () => {
     setLoadingState(true)
 
     fetchBalance()
-      .then((data) => {
+      .then(() => {
         console.log("Get balance successfully")
       })
       .catch((err) => {

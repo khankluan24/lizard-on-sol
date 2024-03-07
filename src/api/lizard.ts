@@ -6,7 +6,7 @@ export const checkWl = async (address: string): Promise<WhiteList> => {
     return res.data;
 };
 
-export const fetchTotalRise = async (): Promise<WhiteList> => {
+export const fetchTotalRise = async (): Promise<TotalRise> => {
     const res = await axiosInstance.get("/totalraise");
     if (!res.data) throw new Error("No data");
     return res.data;

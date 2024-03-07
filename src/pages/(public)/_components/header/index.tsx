@@ -6,9 +6,7 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
 
 import styles from "./Index.module.scss"
 
-type Props = {}
-
-const Header = (props: Props) => {
+const Header = () => {
   const { publicKey } = useWallet()
   const { balance } = useUserSOLBalanceStore((state) => state)
   return (

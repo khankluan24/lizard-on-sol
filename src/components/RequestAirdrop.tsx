@@ -3,7 +3,6 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react"
 import { LAMPORTS_PER_SOL, TransactionSignature } from "@solana/web3.js"
 
 import useUserSOLBalanceStore from "../stores/useUserSOLBalanceStore"
-import { notify } from "../utils/notifications"
 
 export const RequestAirdrop: FC = () => {
   const { connection } = useConnection()
@@ -13,11 +12,6 @@ export const RequestAirdrop: FC = () => {
   const onClick = useCallback(async () => {
     if (!publicKey) {
       console.log("error", "Wallet not connected!")
-      notify({
-        type: "error",
-        message: "error",
-        description: "Wallet not connected!",
-      })
       return
     }
 
@@ -33,23 +27,11 @@ export const RequestAirdrop: FC = () => {
         "confirmed"
       )
 
-      notify({
-        type: "success",
-        message: "Airdrop successful!",
-        txid: signature,
-      })
-
       // getUserSOLBalance(publicKey, connection)
     } catch (error: any) {
-      notify({
-        type: "error",
-        message: `Airdrop failed!`,
-        description: error?.message,
-        txid: signature,
-      })
       console.log("error", `Airdrop failed! ${error?.message}`, signature)
     }
-  }, [publicKey, connection, getUserSOLBalance])
+  }, [publicKey, connection])
 
   return (
     <div className="flex flex-row justify-center">
