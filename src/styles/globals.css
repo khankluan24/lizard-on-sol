@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #14f195;
+  --secondary: #9945ff;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -64,4 +69,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.gradient-btn {
+  background: linear-gradient(63deg, rgb(153, 69, 255) 0%, rgb(20, 241, 149) 90%);
 }

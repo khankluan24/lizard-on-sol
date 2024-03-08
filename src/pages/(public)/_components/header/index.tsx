@@ -11,7 +11,7 @@ const Header = () => {
   const { balance } = useUserSOLBalanceStore((state) => state)
   return (
     <div className="flex items-center justify-end">
-      <div className="flex flex-row flex-wrap z-30 relative m-7">
+      <div className="flex flex-row flex-wrap z-30 relative m-6">
         {publicKey ? (
           <div className={cn("opacity-95", styles.wallet__amount)}>
             {(balance ?? 0)} SOL

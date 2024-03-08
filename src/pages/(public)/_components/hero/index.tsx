@@ -5,6 +5,7 @@ import { treasury } from "@/configs/dapp"
 import { UmiContext } from "@/contexts/umi"
 import useGlobalStore from "@/stores/useGlobalStore"
 import useNftStore, { NftStoreState } from "@/stores/useNftStore"
+import { cn } from "@/utils"
 import { mintV2 } from "@metaplex-foundation/mpl-candy-machine"
 import { setComputeUnitLimit } from "@metaplex-foundation/mpl-toolbox"
 import { PublicKey, some, transactionBuilder } from "@metaplex-foundation/umi"
@@ -60,13 +61,7 @@ const Hero = () => {
 
   return (
     <div className="flex flex-col items-center mt-10 mb-12 gap-5">
-      <Image
-        src="/logo-trans.png"
-        alt="logo transparent"
-        width={250}
-        height={250}
-      />
-      <p className="text-[#f7f6f4] text-xl text-center font-bold tracking-wider">
+      <p className="text-[#f7f6f4] text-sm md:text-xl text-center font-bold tracking-wider">
         Welcome to The Solana Lizard - 300 highly detailed hand drawn cute,
         crazy, and loveable Lizards. Every Lizard and trait are hand drawn by
         the talented artist. Making each and every Lizard unique and valuable.
@@ -87,20 +82,65 @@ const Hero = () => {
           <Image src="/telegram.svg" alt="telegram" width={23} height={23} />
         </Link>
       </div>
-      <h3 className="text-3xl leading-none font-bold mt-[25px] mb-5 text-center">
-        Total Minted : {totalMinted}/300
-      </h3>
+      <div className="flex justify-between w-full md:w-1/2">
+        <div className="flex flex-col">
+          <span className="font-bold">WL Mint.</span>
+          <span
+            className={cn(
+              "text-sm",
+              Object.entries(wl).length === 0
+                ? "text-gray-400"
+                : "text-primary"
+            )}
+          >
+            {Object.entries(wl).length === 0
+              ? "You are not eligible"
+              : "You are eligible"}
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <span className="font-bold text-secondary text-end">In progress</span>
+          <span>2024-03-07 - 13:00:00</span>
+        </div>
+      </div>
+      <div className="flex justify-between w-full md:w-1/2">
+        <div className="flex flex-col">
+          <span className="font-bold">Price</span>
+          <span>2 - SOL</span>
+        </div>
+        <div className="flex gap-8">
+          <div className="flex flex-col text-end">
+            <span className="font-bold">Max</span>
+            <span>300</span>
+          </div>
+          <div className="flex flex-col text-center">
+            <span className="font-bold">Limit</span>
+            <span>1</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col w-full md:w-1/2">
+        <div className="flex justify-between text-xl leading-none font-bold mt-[25px] mb-5 text-center">
+          <h3 className="">Total minted</h3>
+          <span>({totalMinted}/300)</span>
+        </div>
+        <progress
+          className="progress border border-white h-4"
+          value={totalMinted}
+          max="300"
+        ></progress>
+      </div>
       {Object.entries(wl).length === 0 && <h1>Mint is private.</h1>}
       <button
         onClick={mintNft}
-        className="btn glass rounded"
+        className={cn("btn gradient-btn disabled:!glass disabled:bg-none rounded w-36 hover:scale-105")}
         disabled={
           Object.entries(wl).length === 0 ||
           umiContext?.hasMinted ||
           !wallet.connected
         }
       >
-        Mint button
+        Mint
       </button>
     </div>
   )
