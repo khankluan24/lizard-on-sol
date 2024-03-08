@@ -1,5 +1,6 @@
 import React, { useCallback, useContext } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { treasury } from "@/configs/dapp"
 import { UmiContext } from "@/contexts/umi"
 import useGlobalStore from "@/stores/useGlobalStore"
@@ -65,11 +66,28 @@ const Hero = () => {
         width={250}
         height={250}
       />
-      <p className="text-[#f7f6f4] font-creepster text-3xl text-center font-bold tracking-wider">
-        6942 Rejected f00kers here to f00k shit up. 3 mints max per wallet.
-        Free. f00k f00k Mother f00kers.
+      <p className="text-[#f7f6f4] text-xl text-center font-bold tracking-wider">
+        Welcome to The Solana Lizard - 300 highly detailed hand drawn cute,
+        crazy, and loveable Lizards. Every Lizard and trait are hand drawn by
+        the talented artist. Making each and every Lizard unique and valuable.
       </p>
-      <h3 className="text-3xl leading-none font-bold mt-[25px] mb-5">
+      <div className="flex gap-4">
+        <Link
+          href="https://twitter.com/LIZAonSol"
+          target="_blank"
+          className="w-12 h-12 p-3 bg-white border-2 border-black rounded-xl hover:opacity-70 transition-all duration-300 cursor-pointer"
+        >
+          <Image src="/twitter.svg" alt="twitter" width={23} height={23} />
+        </Link>
+        <Link
+          href="https://t.me/LIZAOnSol"
+          target="_blank"
+          className="w-12 h-12 p-3 bg-white border-2 border-black rounded-xl hover:opacity-70 transition-all duration-300 cursor-pointer"
+        >
+          <Image src="/telegram.svg" alt="telegram" width={23} height={23} />
+        </Link>
+      </div>
+      <h3 className="text-3xl leading-none font-bold mt-[25px] mb-5 text-center">
         Total Minted : {totalMinted}/300
       </h3>
       {Object.entries(wl).length === 0 && <h1>Mint is private.</h1>}

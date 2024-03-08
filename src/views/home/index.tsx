@@ -15,30 +15,37 @@ import styles from "./Index.module.scss"
 const cloudList = [
   {
     className: styles["cloud-1"],
+    src: "/images/1.webp",
   },
   {
     className: styles["cloud-2"],
+    src: "/images/2.webp",
   },
   {
     className: styles["cloud-3"],
+    src: "/images/3.webp",
   },
   {
     className: styles["cloud-4"],
+    src: "/images/4.webp",
   },
   {
     className: styles["cloud-5"],
+    src: "/images/5.webp",
   },
   {
     className: styles["cloud-6"],
+    src: "/images/6.webp",
   },
   {
     className: styles["cloud-7"],
+    src: "/images/7.webp",
   },
 ]
 
 const renderCloudList = cloudList.map((item, index) => (
   <div className={cn("absolute opacity-40", item.className)} key={index}>
-    <div className={styles.cloud}></div>
+    <Image src={item.src} alt="bg" width={350} height={350} priority={index === 5 ? true: false} />
   </div>
 ))
 

@@ -3,6 +3,7 @@
 import { createContext, useEffect, useMemo, useState } from "react"
 import { candyMachineAddress } from "@/configs/dapp"
 import { checkHasMinted } from "@/libs"
+import useNftStore, { NftStoreState } from "@/stores/useNftStore"
 import {
   CandyGuard,
   CandyMachine,
@@ -27,7 +28,7 @@ interface UmiContextProps {
   candyMachine: CandyMachine | null
   candyGuard: CandyGuard<DefaultGuardSet> | null
   hasMinted: boolean
-  setHasMinted: (_hasMinted: boolean) => void;
+  setHasMinted: (_hasMinted: boolean) => void
 }
 
 export const UmiContext = createContext<UmiContextProps | null>(null)
@@ -41,6 +42,7 @@ const UmiProvider = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = useState<string | null>(null)
   const [hasMinted, setHasMinted] = useState(false)
   const { connection } = useConnection()
+  const { setTotalMinted } = useNftStore((state: NftStoreState) => state)
 
   const getCandyMachine = async (_umi: Umi) => {
     try {
@@ -53,6 +55,7 @@ const UmiProvider = ({ children }: { children: React.ReactNode }) => {
       setHasMinted(minted)
       setCandyMachine(candyMachineApi)
       setCandyGuard(candyGuardApi)
+      setTotalMinted(Number(candyMachineApi.itemsRedeemed))
     } catch (err) {
       setError("Failed to get NFT data")
       console.error(err)
@@ -79,7 +82,7 @@ const UmiProvider = ({ children }: { children: React.ReactNode }) => {
       candyMachine,
       candyGuard,
       hasMinted,
-      setHasMinted
+      setHasMinted,
     }),
     [umi, nft, candyMachine, candyGuard, hasMinted]
   )
