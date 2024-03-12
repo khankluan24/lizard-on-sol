@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 import { ToastContainer } from "react-toastify"
 
 const Toast = () => {
@@ -8,7 +9,7 @@ const Toast = () => {
       autoClose={5000}
       hideProgressBar={false}
       newestOnTop={false}
-      closeOnClick
+      // closeOnClick
       rtl={false}
       pauseOnFocusLoss
       pauseOnHover
@@ -18,3 +19,9 @@ const Toast = () => {
 }
 
 export default Toast
+
+export const CustomToastWithLink = (tx: string) => (
+  <Link href={`https://solscan.io/tx/${tx}`}>
+    Mint successfully with transaction {tx}
+  </Link>
+)

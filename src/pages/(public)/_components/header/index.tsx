@@ -14,7 +14,7 @@ const Header = () => {
       <div className="flex flex-row flex-wrap z-30 relative m-6">
         {publicKey ? (
           <div className={cn("opacity-95", styles.wallet__amount)}>
-            {(balance ?? 0)} SOL
+            {balance ?? 0} SOL
             <WalletMultiButton className="!btn !glass transition-all duration-200 hover:!bg-transparent hover:scale-105" />
           </div>
         ) : (

@@ -45,7 +45,13 @@ const cloudList = [
 
 const renderCloudList = cloudList.map((item, index) => (
   <div className={cn("absolute opacity-40", item.className)} key={index}>
-    <Image src={item.src} alt="bg" width={350} height={350} priority={index === 5 ? true: false} />
+    <Image
+      src={item.src}
+      alt="bg"
+      width={350}
+      height={350}
+      priority={index === 5 ? true : false}
+    />
   </div>
 ))
 
@@ -74,33 +80,6 @@ const renderMarqueeList = (num: number): React.ReactNode =>
       ))
 
 export const HomeView = () => {
-  const { publicKey } = useWallet()
-  const { connection } = useConnection()
-  const { setLoadingState } = useGlobalStore((state) => state)
-
-  const { setBalance } = useUserSOLBalanceStore((state) => state)
-
-  const fetchBalance = async () => {
-    if (publicKey) {
-      let balance = await connection.getBalance(publicKey)
-      balance = parseFloat((balance / LAMPORTS_PER_SOL).toFixed(4))
-      setBalance(balance)
-    }
-  }
-  useEffect(() => {
-    setLoadingState(true)
-
-    fetchBalance()
-      .then(() => {
-        console.log("Get balance successfully")
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-      .finally(() => {
-        setLoadingState(false)
-      })
-  }, [publicKey, connection])
 
   return (
     <>

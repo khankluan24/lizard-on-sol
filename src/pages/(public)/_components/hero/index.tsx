@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { treasury } from "@/configs/dapp"
-import { UmiContext } from "@/contexts/umi"
+import { DataContext } from "@/contexts/axios"
 import useGlobalStore from "@/stores/useGlobalStore"
 import useNftStore, { NftStoreState } from "@/stores/useNftStore"
 import { cn } from "@/utils"
@@ -13,9 +13,11 @@ import { useWallet } from "@solana/wallet-adapter-react"
 import base58 from "bs58"
 import { toast } from "react-toastify"
 
+import { CustomToastWithLink } from "@/components/toast"
+
 const Hero = () => {
   const wallet = useWallet()
-  const umiContext = useContext(UmiContext)
+  const dataContext = useContext(DataContext)
   const { totalMinted, wl } = useNftStore((state: NftStoreState) => state)
   const { setLoadingState } = useGlobalStore((state) => state)
 
@@ -24,15 +26,15 @@ const Hero = () => {
       setLoadingState(true)
 
       const transaction = transactionBuilder()
-        .add(setComputeUnitLimit(umiContext?.umi!, { units: 900_000 }))
+        .add(setComputeUnitLimit(dataContext?.umi!, { units: 900_000 }))
         .add(
-          mintV2(umiContext?.umi!, {
-            candyMachine: umiContext?.candyMachine?.publicKey as PublicKey,
-            nftMint: umiContext?.nft!,
-            candyGuard: umiContext?.candyGuard?.publicKey,
-            collectionMint: umiContext?.candyMachine!
+          mintV2(dataContext?.umi!, {
+            candyMachine: dataContext?.candyMachine?.publicKey as PublicKey,
+            nftMint: dataContext?.nft!,
+            candyGuard: dataContext?.candyGuard?.publicKey,
+            collectionMint: dataContext?.candyMachine!
               .collectionMint as PublicKey,
-            collectionUpdateAuthority: umiContext?.candyMachine!
+            collectionUpdateAuthority: dataContext?.candyMachine!
               .authority as PublicKey,
             mintArgs: {
               solPayment: some({ destination: treasury }),
@@ -40,12 +42,16 @@ const Hero = () => {
             },
           })
         )
-      const { signature } = await transaction.sendAndConfirm(umiContext?.umi!, {
-        confirm: { commitment: "confirmed" },
-      })
+      const { signature } = await transaction.sendAndConfirm(
+        dataContext?.umi!,
+        {
+          confirm: { commitment: "confirmed" },
+        }
+      )
+
       const tx = base58.encode(signature)
-      toast.success(`Mint successfully with transaction ${tx}`)
-      umiContext?.setHasMinted(true)
+      toast.success(CustomToastWithLink(tx))
+      dataContext?.setHasMinted(true)
     } catch (error: any) {
       toast.error("Mint failed!")
       console.error(`Mint failed! ${error}`)
@@ -53,12 +59,11 @@ const Hero = () => {
       setLoadingState(false)
     }
   }, [
-    umiContext?.candyGuard?.publicKey,
-    umiContext?.candyMachine,
-    umiContext?.nft,
-    umiContext?.umi,
+    dataContext?.candyGuard?.publicKey,
+    dataContext?.candyMachine,
+    dataContext?.nft,
+    dataContext?.umi,
   ])
-
   return (
     <div className="flex flex-col items-center mt-10 mb-12 gap-5">
       <p className="text-[#f7f6f4] text-sm md:text-xl text-center font-bold tracking-wider">
@@ -88,9 +93,7 @@ const Hero = () => {
           <span
             className={cn(
               "text-sm",
-              Object.entries(wl).length === 0
-                ? "text-gray-400"
-                : "text-primary"
+              Object.entries(wl).length === 0 ? "text-gray-400" : "text-primary"
             )}
           >
             {Object.entries(wl).length === 0
@@ -106,12 +109,12 @@ const Hero = () => {
       <div className="flex justify-between w-full md:w-1/2">
         <div className="flex flex-col">
           <span className="font-bold">Price</span>
-          <span>2 - SOL</span>
+          <span>1 - SOL</span>
         </div>
         <div className="flex gap-8">
           <div className="flex flex-col text-end">
-            <span className="font-bold">Max</span>
-            <span>300</span>
+            <span className="font-bold">Max Supply</span>
+            <span className=" text-center">300</span>
           </div>
           <div className="flex flex-col text-center">
             <span className="font-bold">Limit</span>
@@ -133,14 +136,16 @@ const Hero = () => {
       {Object.entries(wl).length === 0 && <h1>Mint is private.</h1>}
       <button
         onClick={mintNft}
-        className={cn("btn gradient-btn disabled:!glass disabled:bg-none rounded w-36 hover:scale-105")}
+        className={cn(
+          "btn gradient-btn disabled:!glass disabled:bg-none rounded w-36 hover:scale-105"
+        )}
         disabled={
           Object.entries(wl).length === 0 ||
-          umiContext?.hasMinted ||
+          dataContext?.hasMinted ||
           !wallet.connected
         }
       >
-        Mint
+        {dataContext?.hasMinted && wallet.connected ? "Minted" : "Mint"}
       </button>
     </div>
   )

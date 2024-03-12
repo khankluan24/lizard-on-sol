@@ -9,8 +9,11 @@ import "@fontsource/creepster"
 import "@fontsource/fugaz-one"
 import "react-toastify/dist/ReactToastify.css"
 
-import Header from "./(public)/_components/header"
+import DataProvider from "@/contexts/axios"
+
 import Toast from "@/components/toast"
+
+import Header from "./(public)/_components/header"
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -25,11 +28,10 @@ const App = ({ Component, pageProps }: AppProps) => {
           sizes="180x180"
         />
       </Head>
-
       <ContextProvider>
         <Header />
         <Component {...pageProps} />
-        <Toast/>
+        <Toast />
       </ContextProvider>
     </>
   )
