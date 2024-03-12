@@ -21,7 +21,7 @@ const Toast = () => {
 export default Toast
 
 export const CustomToastWithLink = (tx: string) => (
-  <Link href={`https://solscan.io/tx/${tx}`}>
+  <Link href={`https://solscan.io/tx/${tx}`} target="_blank" >
     Mint successfully with transaction {tx}
   </Link>
 )

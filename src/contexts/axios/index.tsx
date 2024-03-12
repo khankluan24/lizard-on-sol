@@ -75,7 +75,7 @@ const DataProvider = ({ children }: { children: React.ReactNode }) => {
         let balance = await connection.getBalance(wallet.publicKey!)
         balance = parseFloat((balance / LAMPORTS_PER_SOL).toFixed(4))
         setBalance(balance)
-        const umiInstance = createUmi(clusterApiUrl("devnet"))
+        const umiInstance = createUmi(process.env.NEXT_PUBLIC_ENDPOINT_JSON_RPC as string)
           .use(walletAdapterIdentity(wallet))
           .use(mplCandyMachine())
         const nftMint = generateSigner(umiInstance)

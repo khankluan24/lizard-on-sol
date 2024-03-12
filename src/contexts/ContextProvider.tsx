@@ -22,9 +22,9 @@ const ReactUIWalletModalProviderDynamic = dynamic(
 )
 
 const WalletContextProvider = ({ children }: { children: ReactNode }) => {
-  const network = WalletAdapterNetwork.Devnet
+  const network = WalletAdapterNetwork.Mainnet
 
-  const endpoint = useMemo(() => clusterApiUrl(network), [network])
+  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_JSON_RPC as string
   console.log(network)
 
   const wallets = useMemo(

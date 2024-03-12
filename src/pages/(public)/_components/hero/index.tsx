@@ -102,14 +102,14 @@ const Hero = () => {
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="font-bold text-secondary text-end">In progress</span>
+          <span className="font-bold text-secondary text-end">Started on</span>
           <span>2024-03-07 - 13:00:00</span>
         </div>
       </div>
       <div className="flex justify-between w-full md:w-1/2">
         <div className="flex flex-col">
           <span className="font-bold">Price</span>
-          <span>1 - SOL</span>
+          <span>0.3 - SOL</span>
         </div>
         <div className="flex gap-8">
           <div className="flex flex-col text-end">
